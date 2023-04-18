@@ -1,5 +1,5 @@
 # Concurso de Programación
-Desarrollado para el Concurso Umarino de Programación (CUP) tipo ACM ICPC.
+Desarrollado para el Concurso Umarino de Programación (CUP) tipo ACM ICPC. ⚡💻⚡
 
 ## Hardware
 
