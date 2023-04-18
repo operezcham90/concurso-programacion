@@ -11,4 +11,15 @@ HP Mini 110-1000, Intel Atom N270 (1.6GHz, 32-bit).
 
 ## Instalación de Software
 
+Instalar SSH (opcional)
+```
+sudo apt-get update
+sudo apt-get -y install openssh-server
+```
+
 Ejecutar `setup.sh`.
+```
+wget https://raw.githubusercontent.com/operezcham90/vault-server/master/resources/setup.sh
+chmod +x setup.sh
+sudo ./setup.sh
+```
