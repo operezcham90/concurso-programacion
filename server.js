@@ -19,7 +19,7 @@ function raiz(respuesta) {
 }
 
 function version(respuesta) {
-    let mensaje = '⛔'
+    let mensaje = ''
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     cp.exec('gcc --version', (error, exito, fracaso) => {
         mensaje = error | exito | fracaso
