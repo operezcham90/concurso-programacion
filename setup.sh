@@ -3,7 +3,9 @@
 # packages
 apt -y update
 apt -y install git
+apt -y install gcc
 apt -y install nodejs-legacy
+apt -y install build-essential
 
 # folder
 rm -R /home/serv

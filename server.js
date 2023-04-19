@@ -9,6 +9,5 @@ servidor.listen(PORT)
 function responder(solicitud, respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
     const texto = fs.readFileSync('root.html', 'utf8')
-    respuesta.write(texto)
-    respuesta.end()
+    respuesta.end(texto)
 }
