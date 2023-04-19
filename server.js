@@ -11,7 +11,7 @@ servidor.listen(PORT)
 
 function responder(solicitud, respuesta) {
     if (solicitud.url === '/' && solicitud.method === 'GET') raiz(respuesta)
-    if (solicitud.url === 'gcc/version' && solicitud.method === 'GET') version(respuesta)
+    if (solicitud.url === '/gcc/version' && solicitud.method === 'GET') version(respuesta)
 }
 
 function raiz(respuesta) {
