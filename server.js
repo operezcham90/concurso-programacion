@@ -23,12 +23,12 @@ function raiz(respuesta) {
 
 function version(respuesta) {
     console.log('version')
-    let mensaje = '⛔'
+    let numero = '⛔'
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     cp.exec('gcc -dumpversion', (error, exito, fracaso) => {
-        if (exito) mensaje = exito
+        if (exito) numero = exito.trim()
         const datos = {
-            mensaje
+            numero
         }
         const texto = JSON.stringify(datos)
         respuesta.end(texto)

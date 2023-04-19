@@ -1693,9 +1693,19 @@
     </style>
 </head>
 
-<body>
-    <h1>Raíz</h1>
-    <p>Hola ✋</p>
+<body onload="comenzar()">
+    <h1>Sistema de Evaluación</h1>
+    <p>Versión de GCC: <input type="text" disabled value="0.0.0" id="gcc-ver"></p>
+    <script>
+        const gcc_ver = document.getElementById('gcc-ver')
+        const comenzar = () => {
+            fetch('/gcc/version')
+                .then(r => r.json())
+                .then(o => {
+                    gcc_ver.value = o.numero
+                })
+        }
+    </script>
 </body>
 
 </html>
