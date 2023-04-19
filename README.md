@@ -11,7 +11,7 @@ HP Mini 110-1000, [Intel Atom N270](https://ark.intel.com/content/www/us/en/ark/
 
 ## Instalación de Software
 
-Instalar SSH (opcional)
+Instalar SSH (opcional).
 ```
 sudo apt-get update
 sudo apt-get -y install openssh-server
