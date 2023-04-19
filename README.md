@@ -19,7 +19,7 @@ sudo apt-get -y install openssh-server
 
 Ejecutar `setup.sh`.
 ```
-wget https://raw.githubusercontent.com/operezcham90/vault-server/master/resources/setup.sh
+wget https://raw.githubusercontent.com/operezcham90/concurso-programacion/main/setup.sh
 chmod +x setup.sh
 sudo ./setup.sh
 ```
