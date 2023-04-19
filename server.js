@@ -1,3 +1,5 @@
+'use strict'
+
 const cp = require('child_process')
 const http = require('http')
 const fs = require('fs')
@@ -19,7 +21,7 @@ function raiz(respuesta) {
 }
 
 function version(respuesta) {
-    let mensaje = ''
+    let mensaje = '⛔'
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     cp.exec('gcc --version', (error, exito, fracaso) => {
         mensaje = error | exito | fracaso
