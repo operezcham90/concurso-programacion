@@ -26,10 +26,7 @@ function version(respuesta) {
     let mensaje = '⛔'
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     cp.exec('gcc --version', (error, exito, fracaso) => {
-        console.log(error)
-        console.log(exito)
-        console.log(fracaso)
-        mensaje = error | exito | fracaso
+        if (exito) mensaje = exito
         const texto = JSON.parse({
             mensaje: mensaje
         })
