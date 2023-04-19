@@ -27,9 +27,10 @@ function version(respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     cp.exec('gcc --version', (error, exito, fracaso) => {
         if (exito) mensaje = exito
-        const texto = JSON.parse({
-            mensaje: mensaje
-        })
+        const datos = {
+            mensaje
+        }
+        const texto = JSON.stringify(datos)
         respuesta.end(texto)
     })
 }
