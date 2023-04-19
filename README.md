@@ -3,7 +3,7 @@ Desarrollado para el Concurso Umarino de Programación (CUP) tipo ACM ICPC. ⚡�
 
 ## Hardware
 
-HP Mini 110-1000, Intel Atom N270 (1.6GHz, 32-bit).
+HP Mini 110-1000, [Intel Atom N270](https://ark.intel.com/content/www/us/en/ark/products/36331/intel-atom-processor-n270-512k-cache-1-60-ghz-533-mhz-fsb.html) (1.6GHz, 32-bit).
 
 ## Sistema Operativo
 
