@@ -9,33 +9,39 @@
     <link rel="stylesheet" href="lesser-dark.css">
     <link rel="stylesheet" href="codemirror.css">
     <style>
-        .tiempo {
-            width: 50px;
-            height: 50px;
-            font-size: 30px;
+        #tiempo {
+            font-size: 24px;
             text-align: center;
-            line-height: 50px;
-            animation: girar 2s linear infinite;
+            animation: esperando 2s linear infinite;
         }
 
-        @keyframes girar {
-            from {
-                transform: rotate(0deg);
+        @keyframes esperando {
+            0% {
+                opacity: 1;
             }
 
-            to {
-                transform: rotate(360deg);
+            50% {
+                opacity: 0.5;
             }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .ocultar {
+            display: none
         }
     </style>
 </head>
 
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP) tipo ACM ICPC ⚡💻⚡</h1>
-    <div class="tiempo">⏳</div>
-    <p>Versión de GCC del Sistema: <input type="text" disabled value="0.0.0" id="ver"></p>
-    <p>Código:</p>
-    <textarea id="editor">
+    <div id="tiempo">⏳ Cargando...</div>
+    <div id="contenido" class="ocultar">
+        <p>Versión de GCC del Sistema: <input type="text" disabled value="0.0.0" id="ver"></p>
+        <p>Código:</p>
+        <textarea id="editor">
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -50,11 +56,14 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
+    </div>
     <script src="codemirror.js"></script>
     <script src="clike.js"></script>
     <script>
         const ver = document.getElementById('ver')
         const editor = document.getElementById('editor')
+        const tiempo = document.getElementById('tiempo')
+        const contenido = document.getElementById('contenido')
         let potenciado = null
         const comenzar = () => {
             potenciado = CodeMirror.fromTextArea(editor, {
@@ -68,6 +77,8 @@ int main(int argc, char *argv[]) {
                 .then(r => r.json())
                 .then(o => {
                     ver.value = o.numero
+                    contenido.classList.remove('ocultar')
+                    tiempo.classList.add('ocultar')
                 })
         }
     </script>
