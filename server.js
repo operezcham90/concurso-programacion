@@ -4,33 +4,52 @@ const cp = require('child_process')
 const http = require('http')
 const fs = require('fs')
 
-const PORT = 80
+const puerto = 80
+const anfitrion = '0.0.0.0'
 
 const servidor = http.createServer(responder)
-servidor.listen(PORT)
+servidor.listen(puerto, anfitrion)
 
 function responder(solicitud, respuesta) {
     if (solicitud.url === '/' && solicitud.method === 'GET') raiz(respuesta)
-    if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET') icono(respuesta)
-    if (solicitud.url === '/gcc/version' && solicitud.method === 'GET') version(respuesta)
+    else if (solicitud.url === '/water.css' && solicitud.method === 'GET') estilos(respuesta, '💧')
+    else if (solicitud.url === '/codemirror.css' && solicitud.method === 'GET') estilos(respuesta, '🐚')
+    else if (solicitud.url === '/clike.js' && solicitud.method === 'GET') rutinas(respuesta, '🐚')
+    else if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET') icono(respuesta)
+    else if (solicitud.url === '/gcc/version' && solicitud.method === 'GET') version(respuesta)
+    else respuesta.end('✌')
+}
+
+function rutinas(respuesta, marca) {
+    respuesta.writeHead(200, { 'Content-Type': 'application/javascript' })
+    let archivo = 'files/water.min.css'
+    if (marca === '🐚') archivo = 'files/clike.min.js'
+    const texto = fs.readFileSync(archivo, 'utf8')
+    respuesta.end(texto)
+}
+
+function estilos(respuesta, marca) {
+    respuesta.writeHead(200, { 'Content-Type': 'text/css' })
+    let archivo = 'files/water.min.css'
+    if (marca === '💧') archivo = 'files/water.min.css'
+    if (marca === '🐚') archivo = 'files/codemirror.min.css'
+    const texto = fs.readFileSync(archivo, 'utf8')
+    respuesta.end(texto)
 }
 
 function raiz(respuesta) {
-    console.log('raiz')
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
-    const texto = fs.readFileSync('root.html', 'utf8')
+    const texto = fs.readFileSync('files/root.html', 'utf8')
     respuesta.end(texto)
 }
 
 function icono(respuesta) {
-    console.log('icono')
     respuesta.writeHead(200, { 'Content-Type': 'image/x-icon' })
-    const caudal = fs.createReadStream('favicon.ico')
+    const caudal = fs.createReadStream('files/favicon.ico')
     caudal.pipe(respuesta)
 }
 
 function version(respuesta) {
-    console.log('version')
     let numero = '⛔'
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     cp.exec('gcc -dumpversion', (error, exito, fracaso) => {

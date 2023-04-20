@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡💻⚡ CUP</title>
+    <link rel="stylesheet" href="water.css">
+    <link rel="stylesheet" href="codemirror.css">
+</head>
+
+<body onload="comenzar()">
+    <h1>Concurso Umarino de Programación (CUP) tipo ACM ICPC ⚡💻⚡</h1>
+    <p>Versión de GCC del Sistema: <input type="text" disabled value="0.0.0" id="ver"></p>
+    <p>Código:</p>
+    <textarea id="editor"></textarea>
+    <script src="clike.js"></script>
+    <script>
+        const ver = document.getElementById('ver')
+        const editor = document.getElementById('editor')
+        let potenciado = null
+        const comenzar = () => {
+            potenciado = CodeMirror.fromTextArea(editor, {
+                mode: "text/x-csrc",
+                theme: "default",
+                lineNumbers: true,
+                indentUnit: 4,
+                autofocus: true
+            })
+            fetch('/gcc/version')
+                .then(r => r.json())
+                .then(o => {
+                    gcc_ver.value = o.numero
+                })
+        }
+    </script>
+</body>
+
+</html>
