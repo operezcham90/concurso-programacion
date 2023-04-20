@@ -8,10 +8,31 @@
     <link rel="stylesheet" href="water.css">
     <link rel="stylesheet" href="lesser-dark.css">
     <link rel="stylesheet" href="codemirror.css">
+    <style>
+        .tiempo {
+            width: 50px;
+            height: 50px;
+            font-size: 30px;
+            text-align: center;
+            line-height: 50px;
+            animation: girar 2s linear infinite;
+        }
+
+        @keyframes girar {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP) tipo ACM ICPC ⚡💻⚡</h1>
+    <div class="tiempo">⏳</div>
     <p>Versión de GCC del Sistema: <input type="text" disabled value="0.0.0" id="ver"></p>
     <p>Código:</p>
     <textarea id="editor">
