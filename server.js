@@ -14,6 +14,7 @@ function responder(solicitud, respuesta) {
     if (solicitud.url === '/' && solicitud.method === 'GET') raiz(respuesta)
     else if (solicitud.url === '/water.css' && solicitud.method === 'GET') estilos(respuesta, '💧')
     else if (solicitud.url === '/codemirror.css' && solicitud.method === 'GET') estilos(respuesta, '🐚')
+    else if (solicitud.url === '/lesser-dark.css' && solicitud.method === 'GET') estilos(respuesta, '🎨')
     else if (solicitud.url === '/clike.js' && solicitud.method === 'GET') rutinas(respuesta, '🔨')
     else if (solicitud.url === '/codemirror.js' && solicitud.method === 'GET') rutinas(respuesta, '🐚')
     else if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET') icono(respuesta)
@@ -26,6 +27,7 @@ function rutinas(respuesta, marca) {
     let archivo = 'files/water.min.css'
     if (marca === '🔨') archivo = 'files/clike.min.js'
     if (marca === '🐚') archivo = 'files/codemirror.min.js'
+    if (marca === '🎨') archivo = 'files/lesser-dark.css'
     const texto = fs.readFileSync(archivo, 'utf8')
     respuesta.end(texto)
 }

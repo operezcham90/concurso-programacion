@@ -7,6 +7,7 @@
     <title>⚡💻⚡ CUP</title>
     <link rel="stylesheet" href="water.css">
     <link rel="stylesheet" href="codemirror.css">
+    <link rel="stylesheet" href="lesser-dark.css">
 </head>
 
 <body onload="comenzar()">
@@ -19,7 +20,7 @@
 
 int main(int argc, char *argv[]) {
     if (argc != 3) {
-        printf("Uso: %s <numero1> <numero2>\n", argv[0]);
+        printf("Uso: %s <num1> <num2>\n", argv[0]);
         return 1;
     }
     int num1 = atoi(argv[1]);
@@ -27,8 +28,7 @@ int main(int argc, char *argv[]) {
     int suma = num1 + num2;
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
-}
-    </textarea>
+}</textarea>
     <script src="codemirror.js"></script>
     <script src="clike.js"></script>
     <script>
@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
         const comenzar = () => {
             potenciado = CodeMirror.fromTextArea(editor, {
                 mode: "text/x-csrc",
-                theme: "cobalt",
+                theme: "lesser-dark",
                 lineNumbers: true,
                 indentUnit: 4,
                 autofocus: true
