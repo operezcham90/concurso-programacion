@@ -36,7 +36,7 @@ function ejecutar(solicitud, respuesta) {
         const fuente = '/home/serv/dump/' + id + '.c'
         const ejecutable = '/home/serv/dump/' + id
         fs.writeFileSync(fuente, programa.codigo)
-        const comando = `gcc ${fuente} -o ${ejecutable} && ./${ejecutable} ${programa.argumentos}`
+        const comando = `gcc ${fuente} -o ${ejecutable} && ${ejecutable} ${programa.argumentos}`
         cp.exec(comando, (error, exito, fracaso) => {
             let texto = ''
             let estado = '🟩'
