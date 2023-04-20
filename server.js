@@ -11,6 +11,7 @@ servidor.listen(PORT)
 
 function responder(solicitud, respuesta) {
     if (solicitud.url === '/' && solicitud.method === 'GET') raiz(respuesta)
+    if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET') icono(respuesta)
     if (solicitud.url === '/gcc/version' && solicitud.method === 'GET') version(respuesta)
 }
 
@@ -19,6 +20,13 @@ function raiz(respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
     const texto = fs.readFileSync('root.html', 'utf8')
     respuesta.end(texto)
+}
+
+function icono(respuesta) {
+    console.log('icono')
+    respuesta.writeHead(200, { 'Content-Type': 'image/x-icon' })
+    const caudal = fs.createReadStream('favicon.ico')
+    caudal.pipe(respuesta)
 }
 
 function version(respuesta) {
