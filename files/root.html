@@ -100,9 +100,9 @@ int main(int argc, char *argv[]) {
         }
         const actualizar = () => {
             const fecha = new Date()
-            const horas = now.getHours()
-            const minutos = now.getMinutes()
-            const segundos = now.getSeconds()
+            const horas = fecha.getHours()
+            const minutos = fecha.getMinutes()
+            const segundos = fecha.getSeconds()
             const texto = horas.toString().padStart(2, '0')
                 + ':' + minutos.toString().padStart(2, '0')
                 + ':' + segundos.toString().padStart(2, '0')
