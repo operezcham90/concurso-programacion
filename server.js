@@ -35,7 +35,7 @@ function ejecutar(solicitud, respuesta) {
         const id = Date.now()
         const fuente = 'dump/' + id + '.c'
         const ejecutable = 'dump/' + id
-        fs.writeFileSync(archivo, programa.codigo)
+        fs.writeFileSync(fuente, programa.codigo)
         const comando = `gcc ${fuente} -o ${ejecutable} && ./${ejecutable} ${programa.argumentos}`
         exec(comando, (error, exito, fracaso) => {
             let texto = ''
