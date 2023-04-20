@@ -28,6 +28,7 @@ function rutinas(respuesta, marca) {
     if (marca === '🔨') archivo = 'files/clike.min.js'
     if (marca === '🐚') archivo = 'files/codemirror.min.js'
     if (marca === '🎨') archivo = 'files/lesser-dark.css'
+    console.log(marca + ' ' + archivo)
     const texto = fs.readFileSync(archivo, 'utf8')
     respuesta.end(texto)
 }
