@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="codemirror.css">
     <style>
         #tiempo {
-            font-size: 24px;
             text-align: center;
             animation: esperando 2s linear infinite;
         }
@@ -38,10 +37,10 @@
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP) tipo ACM ICPC ⚡💻⚡</h1>
     <div id="tiempo">⏳ Cargando...</div>
-    <div id="contenido" class="ocultar">
+    <div id="contenido">
         <p>Versión de GCC del Sistema: <input type="text" disabled value="0.0.0" id="ver"></p>
         <p>Código:</p>
-        <textarea id="editor">
+        <textarea id="editor" class="ocultar">
 #include <stdio.h>
 #include <stdlib.h>
 
