@@ -20,7 +20,43 @@ function responder(solicitud, respuesta) {
     else if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET') icono(respuesta)
     else if (solicitud.url === '/gcc/version' && solicitud.method === 'GET') version(respuesta)
     else if (solicitud.url === '/ip/direccion' && solicitud.method === 'GET') direccion(solicitud, respuesta)
+    else if (solicitud.url === '/gcc/ejecutar' && solicitud.method === 'POST') ejecutar(solicitud, respuesta)
     else respuesta.end('✌')
+}
+
+function ejecutar(solicitud, respuesta) {
+    let datos = ''
+    respuesta.writeHead(200, { 'Content-Type': 'application/json' })
+    solicitud.on('data', (pedacito) => {
+        datos += pedacito
+    })
+    solicitud.on('end', () => {
+        const programa = JSON.parse(datos)
+        const id = Date.now()
+        const fuente = 'dump/' + id + '.c'
+        const ejecutable = 'dump/' + id
+        fs.writeFileSync(archivo, programa.codigo)
+        const comando = `gcc ${fuente} -o ${ejecutable} && ./${ejecutable} ${programa.argumentos}`
+        exec(comando, (error, exito, fracaso) => {
+            let texto = ''
+            let estado = '🟩'
+            if (error) {
+                texto = error
+                estado = '🟥'
+            }
+            if (fracaso) {
+                texto = fracaso
+                estado = '🟧'
+            }
+            if (exito) texto = exito
+            const datos = {
+                texto,
+                estado
+            }
+            const cadena = JSON.stringify(datos)
+            respuesta.end(cadena)
+        })
+    })
 }
 
 function rutinas(respuesta, marca) {

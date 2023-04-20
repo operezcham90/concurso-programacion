@@ -54,6 +54,8 @@
                 </tr>
             </tbody>
         </table>
+        <h2>🔢 Entrada:</h2>
+        <input type="text" value="0 0" id="entrada">
         <h2>💻 Código:</h2>
         <textarea id="editor" class="ocultar">
 #include <stdio.h>
@@ -70,6 +72,9 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
+        <button onclick="probar()">▶ Ejecutar</button>
+        <h2>🏁 Salida:</h2>
+        <code id="salida"></code>
     </div>
     <script src="codemirror.js"></script>
     <script src="clike.js"></script>
@@ -78,6 +83,8 @@ int main(int argc, char *argv[]) {
         const dir = document.getElementById('dir')
         const hora = document.getElementById('hora')
         const editor = document.getElementById('editor')
+        const salida = document.getElementById('salida')
+        const entrada = document.getElementById('entrada')
         const tiempo = document.getElementById('tiempo')
         const contenido = document.getElementById('contenido')
         let potenciado = null
@@ -97,6 +104,23 @@ int main(int argc, char *argv[]) {
             dir.value = direccion.ip
             contenido.classList.remove('ocultar')
             tiempo.classList.add('ocultar')
+        }
+        const probar = async () => {
+            const codigo = potenciado.getValue()
+            const argumentos = entrada.value
+            const datos = { codigo, argumentos }
+            const texto = JSON.stringify(datos)
+            const opciones = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: texto
+            }
+            let respuesta = await fetch("/gcc/ejecutar", opciones)
+            const resultado = await respuesta.json()
+            salida.innerHTML = resultado.texto
+            console.log(resultado)
         }
         const actualizar = () => {
             const fecha = new Date()
