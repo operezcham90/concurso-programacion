@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚡💻⚡ CUP</title>
     <link rel="stylesheet" href="water.css">
-    <link rel="stylesheet" href="codemirror.css">
     <link rel="stylesheet" href="lesser-dark.css">
+    <link rel="stylesheet" href="codemirror.css">
 </head>
 
 <body onload="comenzar()">
@@ -37,8 +37,8 @@ int main(int argc, char *argv[]) {
         let potenciado = null
         const comenzar = () => {
             potenciado = CodeMirror.fromTextArea(editor, {
-                mode: "text/x-csrc",
-                theme: "lesser-dark",
+                mode: 'text/x-csrc',
+                theme: 'lesser-dark',
                 lineNumbers: true,
                 indentUnit: 4,
                 autofocus: true
