@@ -55,7 +55,8 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
-        <pre><code>Salida del programa:</code><code id="salida">No se ha ejecutado el programa, use el botón</code></pre>
+        <pre><code>Salida del programa:
+            <span id="salida">No se ha ejecutado el programa, use el botón.</span></code></pre>
         <label>Compilador: </label><span id="compilador">⬛</span>
         <label>Correctitud: </label><span id="correctitud">⬛</span>
         <hr>
@@ -122,7 +123,7 @@ int main(int argc, char *argv[]) {
             }
             let respuesta = await fetch("/gcc/ejecutar", opciones)
             const resultado = await respuesta.json()
-            salida.innerHTML = resultado.texto
+            salida.innerText = resultado.texto
             compilador.innerText = resultado.compilacion
             correctitud.innerHTML = resultado.correctitud
         }
