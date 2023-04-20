@@ -33,8 +33,8 @@ function ejecutar(solicitud, respuesta) {
     solicitud.on('end', () => {
         const programa = JSON.parse(datos)
         const id = Date.now()
-        const fuente = 'dump/' + id + '.c'
-        const ejecutable = 'dump/' + id
+        const fuente = '/home/serv/dump/' + id + '.c'
+        const ejecutable = '/home/serv/dump/' + id
         fs.writeFileSync(fuente, programa.codigo)
         const comando = `gcc ${fuente} -o ${ejecutable} && ./${ejecutable} ${programa.argumentos}`
         exec(comando, (error, exito, fracaso) => {
