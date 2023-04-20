@@ -38,8 +38,22 @@
     <h1>Concurso Umarino de Programación (CUP) tipo ACM ICPC ⚡💻⚡</h1>
     <div id="tiempo">⏳ Cargando...</div>
     <div id="contenido">
-        <h2>🐚 Versión de GCC del Sistema:</h2> <input type="text" disabled value="0.0.0" id="ver">
-        <h2>📍 Dirección IP:</h2> <input type="text" disabled value="0.0.0.0" id="dir">
+        <table>
+            <thead>
+                <tr>
+                    <th>🐚 Versión de GCC</th>
+                    <th>📍 Dirección IP</th>
+                    <th>⏳ Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" disabled value="0.0.0" id="ver"></td>
+                    <td><input type="text" disabled value="0.0.0.0" id="dir"></td>
+                    <td><input type="text" disabled value="00:00:00" id="hora"></td>
+                </tr>
+            </tbody>
+        </table>
         <h2>💻 Código:</h2>
         <textarea id="editor" class="ocultar">
 #include <stdio.h>
@@ -62,6 +76,7 @@ int main(int argc, char *argv[]) {
     <script>
         const ver = document.getElementById('ver')
         const dir = document.getElementById('dir')
+        const hora = document.getElementById('hora')
         const editor = document.getElementById('editor')
         const tiempo = document.getElementById('tiempo')
         const contenido = document.getElementById('contenido')
@@ -83,6 +98,17 @@ int main(int argc, char *argv[]) {
             contenido.classList.remove('ocultar')
             tiempo.classList.add('ocultar')
         }
+        const actualizar = () => {
+            const fecha = new Date()
+            const horas = now.getHours()
+            const minutos = now.getMinutes()
+            const segundos = now.getSeconds()
+            const texto = horas.toString().padStart(2, '0')
+                + ':' + minutos.toString().padStart(2, '0')
+                + ':' + segundos.toString().padStart(2, '0')
+            hora.value = texto
+        }
+        setInterval(actualizar, 500)
     </script>
 </body>
 

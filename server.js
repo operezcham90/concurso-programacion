@@ -4,7 +4,7 @@ const cp = require('child_process')
 const http = require('http')
 const fs = require('fs')
 
-const puerto = 80
+const puerto = 81
 const anfitrion = '0.0.0.0'
 
 const servidor = http.createServer(responder)
