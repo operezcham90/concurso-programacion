@@ -35,17 +35,16 @@
 </head>
 
 <body onload="comenzar()">
-    <h1>Concurso Umarino de Programación (CUP) ⚡💻⚡</h1>
+    <h1>Concurso Umarino de Programación (CUP)</h1>
     <div id="tiempo">⏳ Cargando...</div>
     <div id="contenido">
-        <h2>🔢 Entrada:</h2>
+        <label>🔢 Entrada:</label>
         <input type="text" value="0 0" id="entrada">
         <button onclick="probar()">▶ Ejecutar</button>
-        <h2>💻 Código:</h2>
+        <label>💻 Código:</label>
         <textarea id="editor" class="ocultar">
 #include <stdio.h>
 #include <stdlib.h>
-
 int main(int argc, char *argv[]) {
     if (argc != 3) {
         printf("Uso: %s <num1> <num2>\n", argv[0]);
@@ -57,8 +56,11 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
-        <h2>🏁 Salida:</h2>
-        <code id="salida"></code>
+        <label>🏁 Salida:</label>
+        <pre><code id="salida"></code></pre>
+        <label>Compilador: </label><span id="compilador">⬛</span>
+        <label>Correctitud: </label><span id="correctitud">⬛</span>
+        <hr>
         <table>
             <thead>
                 <tr>
@@ -87,6 +89,8 @@ int main(int argc, char *argv[]) {
         const entrada = document.getElementById('entrada')
         const tiempo = document.getElementById('tiempo')
         const contenido = document.getElementById('contenido')
+        const compilador = document.getElementById('compilador')
+        const correctitud = document.getElementById('correctitud')
         let potenciado = null
         const comenzar = async () => {
             potenciado = CodeMirror.fromTextArea(editor, {
@@ -106,6 +110,7 @@ int main(int argc, char *argv[]) {
             tiempo.classList.add('ocultar')
         }
         const probar = async () => {
+            salida.innerHTML = '...'
             const codigo = potenciado.getValue()
             const argumentos = entrada.value
             const datos = { codigo, argumentos }
@@ -120,7 +125,8 @@ int main(int argc, char *argv[]) {
             let respuesta = await fetch("/gcc/ejecutar", opciones)
             const resultado = await respuesta.json()
             salida.innerHTML = resultado.texto
-            console.log(resultado)
+            compilador.innerText = resultado.compilacion
+            correctitud.innerHTML = resultado.correctitud
         }
         const actualizar = () => {
             const fecha = new Date()

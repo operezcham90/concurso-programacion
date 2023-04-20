@@ -39,19 +39,21 @@ function ejecutar(solicitud, respuesta) {
         const comando = `gcc ${fuente} -o ${ejecutable} && ${ejecutable} ${programa.argumentos}`
         cp.exec(comando, (error, exito, fracaso) => {
             let texto = ''
-            let estado = '🟩'
+            let compilacion = '🟩'
+            let correctitud = '⬛'
             if (error) {
                 texto = error
-                estado = '🟥'
+                compilacion = '🟥'
             }
             if (fracaso) {
                 texto = fracaso
-                estado = '🟧'
+                compilacion = '🟧'
             }
             if (exito) texto = exito
             const datos = {
                 texto,
-                estado
+                compilacion,
+                correctitud
             }
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
