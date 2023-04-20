@@ -38,24 +38,9 @@
     <h1>Concurso Umarino de Programación (CUP) tipo ACM ICPC ⚡💻⚡</h1>
     <div id="tiempo">⏳ Cargando...</div>
     <div id="contenido">
-        <table>
-            <thead>
-                <tr>
-                    <th>🐚 Versión de GCC</th>
-                    <th>📍 Dirección IP</th>
-                    <th>⏳ Hora</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" disabled value="0.0.0" id="ver"></td>
-                    <td><input type="text" disabled value="0.0.0.0" id="dir"></td>
-                    <td><input type="text" disabled value="00:00:00" id="hora"></td>
-                </tr>
-            </tbody>
-        </table>
         <h2>🔢 Entrada:</h2>
         <input type="text" value="0 0" id="entrada">
+        <button onclick="probar()">▶ Ejecutar</button>
         <h2>💻 Código:</h2>
         <textarea id="editor" class="ocultar">
 #include <stdio.h>
@@ -72,9 +57,24 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
-        <button onclick="probar()">▶ Ejecutar</button>
         <h2>🏁 Salida:</h2>
         <code id="salida"></code>
+        <table>
+            <thead>
+                <tr>
+                    <th>🐚 Versión de GCC</th>
+                    <th>📍 Dirección IP</th>
+                    <th>⏳ Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" disabled value="0.0.0" id="ver"></td>
+                    <td><input type="text" disabled value="0.0.0.0" id="dir"></td>
+                    <td><input type="text" disabled value="00:00:00" id="hora"></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <script src="codemirror.js"></script>
     <script src="clike.js"></script>

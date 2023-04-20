@@ -11,6 +11,7 @@ apt -y install build-essential
 rm -R /home/serv
 mkdir /home/serv
 cd /home/serv
+mkdir /dump
 
 # source
 git clone https://github.com/operezcham90/concurso-programacion.git app
