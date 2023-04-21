@@ -40,7 +40,7 @@
     <div id="contenido">
         <label>🔢 Entrada:</label>
         <input type="text" value="0 0" id="entrada">
-        <button onclick="probar()">▶ Ejecutar código</button>
+        <button onclick="probar()">Ejecutar código ▶</button>
         <textarea id="editor" class="ocultar">
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,8 +55,7 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
-        <pre><code>Salida del programa:
-            <span id="salida">No se ha ejecutado el programa, use el botón.</span></code></pre>
+        <pre><code>Salida del programa:<span id="salida">No se ha ejecutado el programa, use el botón.</span></code></pre>
         <label>Compilador: </label><span id="compilador">⬛</span>
         <label>Correctitud: </label><span id="correctitud">⬛</span>
         <hr>
