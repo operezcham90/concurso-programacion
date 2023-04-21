@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     printf("La suma de %d y %d es: %d\n", num1, num2, suma);
     return 0;
 }</textarea>
-        <pre><code>Salida del programa:<span id="salida">No se ha ejecutado el programa, use el botón.</span></code></pre>
+        <pre><code>Salida del programa:<span id="salida"></span></code></pre>
         <label>Compilador: </label><span id="compilador">⬛</span>
         <label>Correctitud: </label><span id="correctitud">⬛</span>
         <hr>
@@ -106,9 +106,10 @@ int main(int argc, char *argv[]) {
             dir.value = direccion.ip
             contenido.classList.remove('ocultar')
             tiempo.classList.add('ocultar')
+            salida.innerText = '\nNo se ha ejecutado el programa, use el botón.'
         }
         const probar = async () => {
-            salida.innerHTML = '...'
+            salida.innerHTML = '\n...'
             const codigo = potenciado.getValue()
             const argumentos = entrada.value
             const datos = { codigo, argumentos }
@@ -122,7 +123,7 @@ int main(int argc, char *argv[]) {
             }
             let respuesta = await fetch("/gcc/ejecutar", opciones)
             const resultado = await respuesta.json()
-            salida.innerText = resultado.texto
+            salida.innerText = '\n' + resultado.texto
             compilador.innerText = resultado.compilacion
             correctitud.innerHTML = resultado.correctitud
         }
