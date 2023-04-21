@@ -29,7 +29,7 @@ function responder(solicitud, respuesta) {
         direccion(solicitud, respuesta)
     else if (solicitud.url === '/gcc/ejecutar' && solicitud.method === 'POST')
         ejecutar(solicitud, respuesta)
-    else if (solicitud.url.contains('/matar/servidor/') && solicitud.method === 'GET')
+    else if (solicitud.url === '/matar/servidor' && solicitud.method === 'GET')
         matar(respuesta)
     else
         raiz(respuesta)
