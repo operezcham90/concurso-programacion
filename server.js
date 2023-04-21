@@ -11,17 +11,34 @@ const servidor = http.createServer(responder)
 servidor.listen(puerto, anfitrion)
 
 function responder(solicitud, respuesta) {
-    if (solicitud.url === '/' && solicitud.method === 'GET') raiz(respuesta)
-    else if (solicitud.url === '/water.css' && solicitud.method === 'GET') estilos(respuesta, '💧')
-    else if (solicitud.url === '/codemirror.css' && solicitud.method === 'GET') estilos(respuesta, '🐚')
-    else if (solicitud.url === '/lesser-dark.css' && solicitud.method === 'GET') estilos(respuesta, '🎨')
-    else if (solicitud.url === '/clike.js' && solicitud.method === 'GET') rutinas(respuesta, '🔨')
-    else if (solicitud.url === '/codemirror.js' && solicitud.method === 'GET') rutinas(respuesta, '🐚')
-    else if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET') icono(respuesta)
-    else if (solicitud.url === '/gcc/version' && solicitud.method === 'GET') version(respuesta)
-    else if (solicitud.url === '/ip/direccion' && solicitud.method === 'GET') direccion(solicitud, respuesta)
-    else if (solicitud.url === '/gcc/ejecutar' && solicitud.method === 'POST') ejecutar(solicitud, respuesta)
-    else respuesta.end('✌')
+    if (solicitud.url === '/water.css' && solicitud.method === 'GET')
+        estilos(respuesta, '💧')
+    else if (solicitud.url === '/codemirror.css' && solicitud.method === 'GET')
+        estilos(respuesta, '🐚')
+    else if (solicitud.url === '/lesser-dark.css' && solicitud.method === 'GET')
+        estilos(respuesta, '🎨')
+    else if (solicitud.url === '/clike.js' && solicitud.method === 'GET')
+        rutinas(respuesta, '🔨')
+    else if (solicitud.url === '/codemirror.js' && solicitud.method === 'GET')
+        rutinas(respuesta, '🐚')
+    else if (solicitud.url === '/favicon.ico' && solicitud.method === 'GET')
+        icono(respuesta)
+    else if (solicitud.url === '/gcc/version' && solicitud.method === 'GET')
+        version(respuesta)
+    else if (solicitud.url === '/ip/direccion' && solicitud.method === 'GET')
+        direccion(solicitud, respuesta)
+    else if (solicitud.url === '/gcc/ejecutar' && solicitud.method === 'POST')
+        ejecutar(solicitud, respuesta)
+    else if (solicitud.url.contains('/matar/servidor/') && solicitud.method === 'GET')
+        matar(respuesta)
+    else
+        raiz(respuesta)
+}
+
+function matar(respuesta) {
+    respuesta.writeHead(200, { 'Content-Type': 'text/plain' })
+    respuesta.end('💀')
+    process.exit(0)
 }
 
 function ejecutar(solicitud, respuesta) {
@@ -43,11 +60,11 @@ function ejecutar(solicitud, respuesta) {
             let correctitud = '⬛'
             if (error) {
                 texto = error
-                compilacion = '🟥'
+                compilacion = '⬛'
             }
             if (fracaso) {
                 texto = fracaso
-                compilacion = '🟧'
+                compilacion = '🟥'
             }
             if (exito) texto = exito
             const datos = {
