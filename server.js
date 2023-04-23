@@ -121,12 +121,12 @@ function probar(solicitud, respuesta) {
 
 function ejecutar(solicitud, respuesta, datos) {
     const ejecutable = `/home/d/${datos.ip}.${datos.id}`
-    const inicio = process.hrtime()
+    const inicio = Date.now()
     const proceso = cp.spawn(ejecutable, datos.argumentos.split(' '), { detached: true })
     const temporizador = setTimeout(() => {
         proceso.kill()
         datos.correctitud = '🟥'
-        datos.tiempo = limite
+        datos.tiempo = 1000
         const cadena = JSON.stringify(datos)
         respuesta.end(cadena)
     }, limite)
@@ -136,11 +136,10 @@ function ejecutar(solicitud, respuesta, datos) {
     proceso.stdout.on('data', (salida) => {
         datos.texto += salida
     })
-    proceso.on('measure', (medida) => {
+    proceso.on('close', (codigo) => {
         clearTimeout(temporizador)
-        const fin = process.hrtime(inicio)
-        datos.tiempo = fin[0] * 1000 + fin[1] / 1000000
-        if (medida.code !== 0) {
+        datos.tiempo = Date.now() - inicio
+        if (codigo !== 0) {
             datos.correctitud = '🟥'
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
