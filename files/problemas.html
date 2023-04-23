@@ -60,10 +60,10 @@
                     const informacion = document.createElement('tr')
                     cuerpo.append(informacion)
                     const entrada = document.createElement('td')
-                    entrada = caso.entrada
+                    entrada.innerText = caso.entrada
                     informacion.append(entrada)
                     const salida = document.createElement('td')
-                    salida = caso.salida
+                    salida.innerText = caso.salida
                     informacion.append(salida)
                     const rapidez = document.createElement('td')
                     rapidez.innerText = caso.rapidez + ' ms'
