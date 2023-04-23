@@ -81,12 +81,12 @@ function matar(respuesta) {
 
 function probar(solicitud, respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
-    let datos = ''
+    let cuerpo = ''
     solicitud.on('data', (pedacito) => {
-        datos += pedacito
+        cuerpo += pedacito
     })
     solicitud.on('end', () => {
-        const programa = JSON.parse(datos)
+        const programa = JSON.parse(cuerpo)
         const datos = {
             id: Date.now(),
             ip: solicitud.connection.remoteAddress,
