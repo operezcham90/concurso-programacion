@@ -117,7 +117,7 @@ function probar(solicitud, respuesta) {
 
 function ejecutar(solicitud, respuesta, datos) {
     const ejecutable = `/home/d/${datos.ip}.${datos.id}`
-    const proceso = cp.spawn('ejecutable', datos.argumentos.split(' '), { detached: true })
+    const proceso = cp.spawn(ejecutable, datos.argumentos.split(' '), { detached: true })
     proceso.stderr.on('data', (salida) => {
         datos.texto += salida
     })
