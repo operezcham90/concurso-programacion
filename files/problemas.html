@@ -17,7 +17,7 @@
         th,
         td,
         input {
-            font-size: xx-small;
+            font-size: x-small;
         }
     </style>
 </head>
@@ -60,16 +60,10 @@
                     const informacion = document.createElement('tr')
                     cuerpo.append(informacion)
                     const entrada = document.createElement('td')
-                    const a = document.createElement('input')
-                    a.value = caso.entrada
-                    a.disabled = true
-                    entrada.append(a)
+                    entrada = caso.entrada
                     informacion.append(entrada)
                     const salida = document.createElement('td')
-                    const b = document.createElement('input')
-                    b.value = caso.salida
-                    b.disabled = true
-                    salida.append(b)
+                    salida = caso.salida
                     informacion.append(salida)
                     const rapidez = document.createElement('td')
                     rapidez.innerText = caso.rapidez + ' ms'
