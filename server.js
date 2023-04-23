@@ -80,82 +80,60 @@ function matar(respuesta) {
 }*/
 
 function probar(solicitud, respuesta) {
+    respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     let datos = ''
     solicitud.on('data', (pedacito) => {
         datos += pedacito
     })
     solicitud.on('end', () => {
         const programa = JSON.parse(datos)
-        const id = Date.now()
-        const ip = solicitud.connection.remoteAddress
-        const fuente = `/home/d/${ip}.${id}.c`
-        const ejecutable = '/home/d/' + id
+        const datos = {
+            id: Date.now(),
+            ip: solicitud.connection.remoteAddress,
+            texto: '',
+            compilacion: '🟩',
+            correctitud: '⬛',
+            tiempo: 0,
+            argumentos: programa.argumentos
+        }
+        const ejecutable = `/home/d/${datos.ip}.${datos.id}`
+        const fuente = `${ejecutable}.c`
         fs.writeFileSync(fuente, programa.codigo)
-        const comando = `gcc ${fuente} -o ${ejecutable}`
-        const proceso = cp.spawn('sh', ['-c', comando], { detached: true })
-        let texto = ''
-        proceso.stdout.on('data', (datos) => {
-            texto += datos
-        })
-        proceso.stderr.on('data', (datos) => {
-            texto += datos
+        const proceso = cp.spawn('gcc', [fuente, '-o', ejecutable], { detached: true })
+        proceso.stderr.on('data', (salida) => {
+            datos.texto += salida
         })
         proceso.on('close', (codigo) => {
-            let compilacion = '🟩'
-            let correctitud = '⬛'
             if (codigo !== 0) {
-                compilacion = '🟥'
+                datos.compilacion = '🟥'
+                const cadena = JSON.stringify(datos)
+                respuesta.end(cadena)
+            } else {
+                ejecutar(solicitud, respuesta, datos)
             }
-            const datos = {
-                texto,
-                compilacion,
-                correctitud
-            }
-            const cadena = JSON.stringify(datos)
-            respuesta.end(cadena)
         })
     })
 }
 
-function ejecutar(solicitud, respuesta) {
-    let datos = ''
-    respuesta.writeHead(200, { 'Content-Type': 'application/json' })
-
-    solicitud.on('end', () => {
-        const programa = JSON.parse(datos)
-        const id = Date.now()
-        const fuente = '/home/d/' + id + '.c'
-        const ejecutable = '/home/d/' + id
-        fs.writeFileSync(fuente, programa.codigo)
-        const comando = `gcc ${fuente} -o ${ejecutable} && ${ejecutable} ${programa.argumentos}`
-        const proceso = cp.spawn('sh', ['-c', comando], { detached: true })
-        const temporizador = setTimeout(() => {
-            proceso.kill()
-            const datos = {
-                texto: `El programa no cumple con el límite de tiempo (${limite} milisegundos)`,
-                compilacion: '⬛',
-                correctitud: '⬛'
-            }
+function ejecutar(solicitud, respuesta, datos) {
+    const ejecutable = `/home/d/${datos.ip}.${datos.id}`
+    const proceso = cp.spawn('ejecutable', datos.argumentos.split(' '), { detached: true })
+    proceso.stderr.on('data', (salida) => {
+        datos.texto += salida
+    })
+    proceso.stdout.on('data', (salida) => {
+        datos.texto += salida
+    })
+    proceso.on('close', (codigo) => {
+        if (codigo !== 0) {
+            datos.correctitud = '🟥'
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
-        }, limite)
-        proceso.on('close', (codigo) => {
-            clearTimeout(temporizador)
-            let texto = ''
-            let compilacion = '🟩'
-            let correctitud = '⬛'
-            if (codigo !== 0) {
-                texto = codigo
-                compilacion = '⬛'
-            }
-            const datos = {
-                texto,
-                compilacion,
-                correctitud,
-            }
+        } else {
+            //evaluar(solicitud, respuesta, datos)
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
-        })
+        }
     })
 }
 
