@@ -6,6 +6,7 @@ const fs = require('fs')
 
 const puerto = 81
 const anfitrion = '0.0.0.0'
+const limite = 1000
 
 const servidor = http.createServer(responder)
 servidor.listen(puerto, anfitrion)
@@ -28,7 +29,7 @@ function responder(solicitud, respuesta) {
     else if (solicitud.url === '/ip/direccion' && solicitud.method === 'GET')
         direccion(solicitud, respuesta)
     else if (solicitud.url === '/gcc/ejecutar' && solicitud.method === 'POST')
-        ejecutar(solicitud, respuesta)
+        probar(solicitud, respuesta)
     else if (solicitud.url === '/matar/servidor' && solicitud.method === 'GET')
         matar(respuesta)
     else
@@ -37,11 +38,11 @@ function responder(solicitud, respuesta) {
 
 function matar(respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'text/plain' })
-    respuesta.end('💀')
+    respuesta.end('proceso terminado')
     process.exit(0)
 }
 
-function ejecutar(solicitud, respuesta) {
+/*function ejecutar(solicitud, respuesta) {
     let datos = ''
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     solicitud.on('data', (pedacito) => {
@@ -71,6 +72,81 @@ function ejecutar(solicitud, respuesta) {
                 texto,
                 compilacion,
                 correctitud
+            }
+            const cadena = JSON.stringify(datos)
+            respuesta.end(cadena)
+        })
+    })
+}*/
+
+function probar(solicitud, respuesta) {
+    let datos = ''
+    solicitud.on('data', (pedacito) => {
+        datos += pedacito
+    })
+    solicitud.on('end', () => {
+        const programa = JSON.parse(datos)
+        const id = Date.now()
+        const ip = solicitud.connection.remoteAddress
+        const fuente = `/home/d/${ip}.${id}.c`
+        const ejecutable = '/home/d/' + id
+        fs.writeFileSync(fuente, programa.codigo)
+        const comando = `gcc ${fuente} -o ${ejecutable}`
+        const proceso = cp.spawn('sh', ['-c', comando], { detached: true })
+        proceso.on('close', (codigo) => {
+            let texto = ''
+            let compilacion = '🟩'
+            let correctitud = '⬛'
+            if (codigo !== 0) {
+                texto = codigo
+                compilacion = '🟥'
+            }
+            const datos = {
+                texto,
+                compilacion,
+                correctitud,
+            }
+            const cadena = JSON.stringify(datos)
+            respuesta.end(cadena)
+        })
+    })
+}
+
+function ejecutar(solicitud, respuesta) {
+    let datos = ''
+    respuesta.writeHead(200, { 'Content-Type': 'application/json' })
+
+    solicitud.on('end', () => {
+        const programa = JSON.parse(datos)
+        const id = Date.now()
+        const fuente = '/home/d/' + id + '.c'
+        const ejecutable = '/home/d/' + id
+        fs.writeFileSync(fuente, programa.codigo)
+        const comando = `gcc ${fuente} -o ${ejecutable} && ${ejecutable} ${programa.argumentos}`
+        const proceso = cp.spawn('sh', ['-c', comando], { detached: true })
+        const temporizador = setTimeout(() => {
+            proceso.kill()
+            const datos = {
+                texto: `El programa no cumple con el límite de tiempo (${limite} milisegundos)`,
+                compilacion: '⬛',
+                correctitud: '⬛'
+            }
+            const cadena = JSON.stringify(datos)
+            respuesta.end(cadena)
+        }, limite)
+        proceso.on('close', (codigo) => {
+            clearTimeout(temporizador)
+            let texto = ''
+            let compilacion = '🟩'
+            let correctitud = '⬛'
+            if (codigo !== 0) {
+                texto = codigo
+                compilacion = '⬛'
+            }
+            const datos = {
+                texto,
+                compilacion,
+                correctitud,
             }
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
