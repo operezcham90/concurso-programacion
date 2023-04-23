@@ -25,8 +25,12 @@
                 document.body.append(descripcion)
                 const casos = document.createElement('table')
                 document.body.append(casos)
-                const encabezados = document.createElement('tr')
+                const encabezados = document.createElement('thead')
+                const cuerpo = document.createElement('tbody')
                 casos.append(encabezados)
+                casos.append(cuerpo)
+                const fila = document.createElement('tr')
+                encabezados.append(fila)
                 const lista = [
                     '🔢 Entrada',
                     '🔢 Salida',
@@ -38,11 +42,11 @@
                 lista.forEach(encabezado => {
                     const celda = document.createElement('th')
                     celda.innerText = encabezado
-                    encabezados.append(celda)
+                    fila.append(celda)
                 })
                 problema.casos.forEach((caso, c) => {
                     const informacion = document.createElement('tr')
-                    casos.append(informacion)
+                    cuerpo.append(informacion)
                     const entrada = document.createElement('td')
                     entrada.innerText = caso.entrada
                     informacion.append(entrada)
