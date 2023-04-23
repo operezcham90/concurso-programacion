@@ -60,12 +60,12 @@ function responder(solicitud, respuesta) {
     else if (solicitud.url === '/programar' && solicitud.method === 'GET')
         programar(respuesta)
     else if (solicitud.url === '/problemas/lista' && solicitud.method === 'GET')
-        problemas(respuesta)
+        preguntas(respuesta)
     else
         raiz(respuesta)
 }
 
-function problemas(respuesta) {
+function preguntas(respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
     const cadena = JSON.stringify(problemas)
     respuesta.end(cadena)
