@@ -13,6 +13,7 @@ const interfaces = os.networkInterfaces()
 for (const interfaz in interfaces) {
     for (const detalle of interfaces[interfaz]) {
         console.log(detalle.address)
+        console.log(detalle.family)
         if (detalle.family === 'IPv4') {
             anfitrion = detalle.address
         }
