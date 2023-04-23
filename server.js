@@ -9,6 +9,20 @@ const puerto = 81
 let anfitrion = '0.0.0.0'
 const limite = 1000
 
+const problemas = [
+    {
+        resumen: 'Sumar dos números',
+        casos: [
+            { entrada: '0 0', salida: '0' },
+            { entrada: '1 1', salida: '2' },
+            { entrada: '20 15', salida: '35' },
+            { entrada: '99 16', salida: '115' }
+        ],
+        programa: '',
+        descripción: 'Este problema consiste en sumar dos números enteros dados y retornar la suma como resultado. Se proporcionan varios casos de prueba con diferentes pares de números de entrada y sus respectivas salidas esperadas. Tu objetivo es implementar una función que tome dos números como entrada, los sume y retorne el resultado correcto.'
+    }
+]
+
 const interfaces = os.networkInterfaces()
 for (const interfaz in interfaces) {
     for (const detalle of interfaces[interfaz]) {
@@ -53,8 +67,7 @@ function responder(solicitud, respuesta) {
 
 function problemas(respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
-    const datos = { text: 'suma dos numeros' }
-    const cadena = JSON.stringify(datos)
+    const cadena = JSON.stringify(problemas)
     respuesta.end(cadena)
 }
 
@@ -108,12 +121,12 @@ function probar(solicitud, respuesta) {
 
 function ejecutar(solicitud, respuesta, datos) {
     const ejecutable = `/home/d/${datos.ip}.${datos.id}`
-    const inicio = Date.now()
+    const inicio = process.hrtime()
     const proceso = cp.spawn(ejecutable, datos.argumentos.split(' '), { detached: true })
     const temporizador = setTimeout(() => {
         proceso.kill()
         datos.correctitud = '🟥'
-        datos.tiempo = 1000
+        datos.tiempo = limite
         const cadena = JSON.stringify(datos)
         respuesta.end(cadena)
     }, limite)
@@ -123,10 +136,11 @@ function ejecutar(solicitud, respuesta, datos) {
     proceso.stdout.on('data', (salida) => {
         datos.texto += salida
     })
-    proceso.on('close', (codigo) => {
+    proceso.on('measure', (medida) => {
         clearTimeout(temporizador)
-        datos.tiempo = Date.now() - inicio
-        if (codigo !== 0) {
+        const fin = process.hrtime(inicio)
+        datos.tiempo = fin[0] * 1000 + fin[1] / 1000000
+        if (medida.code !== 0) {
             datos.correctitud = '🟥'
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
