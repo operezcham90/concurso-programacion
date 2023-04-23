@@ -12,14 +12,45 @@ const limite = 1000
 const problemas = [
     {
         resumen: 'Sumar dos números',
+        programa: '#include <stdio.h>\n#include <stdlib.h>\nint main(int argc, char *argv[]) {\n    if (argc != 3) {\n        printf("Uso: %s <num1> <num2>\\n", argv[0]);\n        return 1;\n    }\n    int num1 = atoi(argv[1]);\n    int num2 = atoi(argv[2]);\n    int suma = 0;\n    for (int i = 0; i < num1; i++) {\n        suma += 1;\n    }\n    for (int j = 0; j < num2; j++) {\n        suma += 1;\n    }\n    printf("%d\\n", suma);\n    return 0;\n}\n',
+        descripcion: 'Este problema consiste en sumar dos números enteros dados y retornar la suma como resultado. Se proporcionan varios casos de prueba con diferentes pares de números de entrada y sus respectivas salidas esperadas. Tu objetivo es implementar una función que tome dos números como entrada, los sume y retorne el resultado correcto.',
         casos: [
-            { entrada: '0 0', salida: '0' },
-            { entrada: '1 1', salida: '2' },
-            { entrada: '20 15', salida: '35' },
-            { entrada: '99 16', salida: '115' }
-        ],
-        programa: '',
-        descripción: 'Este problema consiste en sumar dos números enteros dados y retornar la suma como resultado. Se proporcionan varios casos de prueba con diferentes pares de números de entrada y sus respectivas salidas esperadas. Tu objetivo es implementar una función que tome dos números como entrada, los sume y retorne el resultado correcto.'
+            {
+                entrada: '0 0',
+                salida: '0',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '1 1',
+                salida: '2',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '20 15',
+                salida: '35',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '99002000 16000500',
+                salida: '115002500',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '100000000 2000000000',
+                salida: '2100000000',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            }
+        ]
     }
 ]
 
@@ -98,11 +129,13 @@ function probar(solicitud, respuesta) {
             compilacion: '🟩',
             correctitud: '⬛',
             tiempo: 0,
+            lineas: 0,
             argumentos: programa.argumentos
         }
         const ejecutable = `/home/d/${datos.ip}.${datos.id}`
         const fuente = `${ejecutable}.c`
         fs.writeFileSync(fuente, programa.codigo)
+        datos.lineas = programa.codigo.split(';').length - 1
         const proceso = cp.spawn('gcc', [fuente, '-o', ejecutable], { detached: true })
         proceso.stderr.on('data', (salida) => {
             datos.texto += salida

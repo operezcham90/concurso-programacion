@@ -12,12 +12,35 @@
 
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP)</h1>
+    <table id="problemas">
+        <tr>
+            <th>Resumen / descripción</th>
+            <th>Entrada / salida</th>
+            <th>Menor tiempo</th>
+            <th>Menor tamaño</th>
+            <th>Ganador</th>
+        </tr>
+    </table>
     <script>
         let problemas = {}
         const comenzar = async () => {
             const res = await fetch('/problemas/lista')
             problemas = await res.json()
-            console.log(problemas)
+            problemas.forEach(problema => {
+                problema.casos.forEach(caso => {
+                    const linea = document.createElement('tr')
+                    const resumen = document.createElement('td')
+                    const entrada = document.createElement('td')
+                    const tiempo = document.createElement('td')
+                    const lineas = document.createElement('td')
+                    const ganador = document.createElement('td')
+                    resumen.innerText = problema.resumen + '\n' + problema.descripcion
+                    entrada.innerText = caso.entrada + ' / ' + caso.salida
+                    tiempo.innerText = caso.rapidez + ' ms'
+                    lineas.innerText = caso.lineas + ' líneas'
+                    ganador.innerText = caso.ganador
+                })
+            })
         }
     </script>
 </body>
