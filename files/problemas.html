@@ -39,6 +39,12 @@
                     tiempo.innerText = caso.rapidez + ' ms'
                     lineas.innerText = caso.lineas + ' líneas'
                     ganador.innerText = caso.ganador
+                    linea.append(resumen)
+                    linea.append(entrada)
+                    linea.append(tiempo)
+                    linea.append(lineas)
+                    linea.append(ganador)
+                    document.getElementById('problemas').append(linea)
                 })
             })
         }
