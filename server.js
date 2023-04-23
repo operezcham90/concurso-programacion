@@ -6,8 +6,17 @@ const fs = require('fs')
 const os = require('os')
 
 const puerto = 81
-const anfitrion = os.hostname()
+let anfitrion = '0.0.0.0'
 const limite = 1000
+
+const interfaces = os.networkInterfaces()
+for (const interfaz in interfaces) {
+    for (const detalle of interfaces[interfaz]) {
+        if (!detalle.internal && detalle.family === 'IPv4') {
+            anfitrion = detalle.address
+        }
+    }
+}
 
 const servidor = http.createServer(responder)
 servidor.listen(puerto, anfitrion)
