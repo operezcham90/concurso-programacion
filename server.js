@@ -12,8 +12,6 @@ const limite = 1000
 const interfaces = os.networkInterfaces()
 for (const interfaz in interfaces) {
     for (const detalle of interfaces[interfaz]) {
-        console.log(detalle.address)
-        console.log(detalle.family)
         if (detalle.family === 'IPv4') {
             anfitrion = detalle.address
         }
@@ -45,8 +43,25 @@ function responder(solicitud, respuesta) {
         probar(solicitud, respuesta)
     else if (solicitud.url === '/matar/servidor' && solicitud.method === 'GET')
         matar(respuesta)
+    else if (solicitud.url === '/programar' && solicitud.method === 'GET')
+        programar(respuesta)
+    else if (solicitud.url === '/problemas/lista' && solicitud.method === 'GET')
+        problemas(respuesta)
     else
         raiz(respuesta)
+}
+
+function problemas(respuesta) {
+    respuesta.writeHead(200, { 'Content-Type': 'application/json' })
+    const datos = { text: 'suma dos numeros' }
+    const cadena = JSON.stringify(datos)
+    respuesta.end(cadena)
+}
+
+function raiz(respuesta) {
+    respuesta.writeHead(200, { 'Content-Type': 'text/html' })
+    const texto = fs.readFileSync('files/problemas.html', 'utf8')
+    respuesta.end(texto)
 }
 
 function matar(respuesta) {
@@ -142,9 +157,9 @@ function estilos(respuesta, marca) {
     respuesta.end(texto)
 }
 
-function raiz(respuesta) {
+function programar(respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
-    const texto = fs.readFileSync('files/root.html', 'utf8')
+    const texto = fs.readFileSync('files/programar.html', 'utf8')
     respuesta.end(texto)
 }
 

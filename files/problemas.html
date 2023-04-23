@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡💻⚡ CUP</title>
+    <link rel="stylesheet" href="water.css">
+    <link rel="stylesheet" href="lesser-dark.css">
+    <link rel="stylesheet" href="codemirror.css">
+</head>
+
+<body onload="comenzar()">
+    <h1>Concurso Umarino de Programación (CUP)</h1>
+    <script>
+        let problemas = {}
+        const comenzar = async () => {
+            const res = await fetch('/problemas/lista')
+            problemas = await res.json()
+            console.log(problemas)
+        }
+    </script>
+</body>
+
+</html>
