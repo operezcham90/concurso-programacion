@@ -33,14 +33,15 @@
                 document.body.append(casos)
                 const encabezados = document.createElement('tr')
                 casos.append(encabezados)
-                [
+                const lista = [
                     '🔢 Entrada',
                     '🔢 Salida',
                     '⏳ Menor tiempo',
                     '📐 Menor tamaño',
                     '🥇 Ganador',
                     '💻 Probar'
-                ].forEach(encabezado => {
+                ]
+                lista.forEach(encabezado => {
                     const celda = document.createElement('th')
                     celda.innerText = encabezado
                     encabezados.append(celda)
