@@ -9,10 +9,15 @@
     <link rel="stylesheet" href="lesser-dark.css">
     <link rel="stylesheet" href="codemirror.css">
     <style>
+        input {
+            max-width: 90%;
+        }
+
         a,
         th,
-        td {
-            font-size: xx-small;
+        td,
+        input {
+            font-size: x-small;
         }
     </style>
 </head>
@@ -55,10 +60,16 @@
                     const informacion = document.createElement('tr')
                     cuerpo.append(informacion)
                     const entrada = document.createElement('td')
-                    entrada.innerText = caso.entrada
+                    const a = document.createElement('input')
+                    a.value = caso.entrada
+                    a.disabled = true
+                    entrada.append(a)
                     informacion.append(entrada)
                     const salida = document.createElement('td')
-                    salida.innerText = caso.salida
+                    const b = document.createElement('input')
+                    b.value = caso.salida
+                    b.disabled = true
+                    salida.append(b)
                     informacion.append(salida)
                     const rapidez = document.createElement('td')
                     rapidez.innerText = caso.rapidez + ' ms'

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡💻⚡ CUP</title>
+    <link rel="stylesheet" href="water.css">
+    <link rel="stylesheet" href="lesser-dark.css">
+    <link rel="stylesheet" href="codemirror.css">
+    <style>
+        #tiempo {
+            text-align: center;
+            animation: esperando 2s linear infinite;
+        }
+
+        @keyframes esperando {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .ocultar {
+            display: none
+        }
+    </style>
+</head>
+
+<body onload="comenzar()">
+    <h1>Concurso Umarino de Programación (CUP)</h1>
+    <div id="tiempo">⏳ Cargando...</div>
+    <div id="contenido">
+        <label>🔢 Entrada:</label>
+        <input type="text" value="." id="entrada">
+        <button onclick="probar()">Ejecutar código ▶</button>
+        <textarea id="editor" class="ocultar">
+#include <stdio.h>
+#include <stdlib.h>
+int main(int argc, char *argv[]) {
+    printf("Hola mundo\n");
+    return 0;
+}</textarea>
+        <pre><code>Salida del programa:<span id="salida"></span></code></pre>
+        <label>Compilador:</label> <span id="compilador">⬛</span>
+        <label>Correctitud:</label> <span id="correctitud">⬛</span>
+        <label>Velocidad:</label> <span id="velocidad">0</span> ms
+        <label>Líneas:</label> <span id="lineas">0</span>
+        <hr>
+        <table>
+            <thead>
+                <tr>
+                    <th>🐚 Versión de GCC</th>
+                    <th>📍 Dirección IP</th>
+                    <th>⏳ Hora</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" disabled value="0.0.0" id="ver"></td>
+                    <td><input type="text" disabled value="0.0.0.0" id="dir"></td>
+                    <td><input type="text" disabled value="00:00:00" id="hora"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="codemirror.js"></script>
+    <script src="clike.js"></script>
+    <script>
+        const ver = document.getElementById('ver')
+        const dir = document.getElementById('dir')
+        const hora = document.getElementById('hora')
+        const editor = document.getElementById('editor')
+        const salida = document.getElementById('salida')
+        const entrada = document.getElementById('entrada')
+        const tiempo = document.getElementById('tiempo')
+        const lineas = document.getElementById('lineas')
+        const velocidad = document.getElementById('velocidad')
+        const contenido = document.getElementById('contenido')
+        const compilador = document.getElementById('compilador')
+        const correctitud = document.getElementById('correctitud')
+        let potenciado = null
+        const comenzar = async () => {
+            potenciado = CodeMirror.fromTextArea(editor, {
+                mode: 'text/x-csrc',
+                theme: 'lesser-dark',
+                lineNumbers: true,
+                indentUnit: 4,
+                autofocus: true
+            })
+            let respuesta = await fetch('/gcc/version')
+            const version = await respuesta.json()
+            ver.value = version.numero
+            respuesta = await fetch('/ip/direccion')
+            const direccion = await respuesta.json()
+            dir.value = direccion.ip
+            contenido.classList.remove('ocultar')
+            tiempo.classList.add('ocultar')
+            salida.innerText = '\nNo se ha ejecutado el programa, use el botón.'
+        }
+        const probar = async () => {
+            salida.innerHTML = '\n...'
+            const codigo = potenciado.getValue()
+            const argumentos = entrada.value
+            const datos = { codigo, argumentos }
+            const texto = JSON.stringify(datos)
+            const opciones = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: texto
+            }
+            let respuesta = await fetch("/gcc/ejecutar", opciones)
+            const resultado = await respuesta.json()
+            salida.innerText = '\n' + resultado.texto
+            compilador.innerText = resultado.compilacion
+            correctitud.innerHTML = resultado.correctitud
+            velocidad.innerText = resultado.tiempo
+            lineas.innerText = resultado.lineas
+        }
+        const actualizar = () => {
+            const fecha = new Date()
+            const horas = fecha.getHours()
+            const minutos = fecha.getMinutes()
+            const segundos = fecha.getSeconds()
+            const texto = horas.toString().padStart(2, '0')
+                + ':' + minutos.toString().padStart(2, '0')
+                + ':' + segundos.toString().padStart(2, '0')
+            hora.value = texto
+        }
+        setInterval(actualizar, 500)
+    </script>
+</body>
+
+</html>
