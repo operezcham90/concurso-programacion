@@ -93,18 +93,23 @@ function probar(solicitud, respuesta) {
         fs.writeFileSync(fuente, programa.codigo)
         const comando = `gcc ${fuente} -o ${ejecutable}`
         const proceso = cp.spawn('sh', ['-c', comando], { detached: true })
+        let texto = ''
+        proceso.stdout.on('data', (datos) => {
+            texto += datos
+        })
+        proceso.stderr.on('data', (datos) => {
+            texto += datos
+        })
         proceso.on('close', (codigo) => {
-            let texto = ''
             let compilacion = '🟩'
             let correctitud = '⬛'
             if (codigo !== 0) {
-                texto = codigo
                 compilacion = '🟥'
             }
             const datos = {
                 texto,
                 compilacion,
-                correctitud,
+                correctitud
             }
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
