@@ -22,7 +22,7 @@ for (const interfaz in interfaces) {
 
 const servidor = http.createServer(responder)
 servidor.listen(puerto, anfitrion)
-console.log(`http://${afitrion}:${puerto}`)
+console.log(`http://${anfitrion}:${puerto}`)
 
 function responder(solicitud, respuesta) {
     if (solicitud.url === '/water.css' && solicitud.method === 'GET')
