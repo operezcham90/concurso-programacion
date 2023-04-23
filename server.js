@@ -117,7 +117,15 @@ function probar(solicitud, respuesta) {
 
 function ejecutar(solicitud, respuesta, datos) {
     const ejecutable = `/home/d/${datos.ip}.${datos.id}`
+    const inicio = Date.now()
     const proceso = cp.spawn(ejecutable, datos.argumentos.split(' '), { detached: true })
+    const temporizador = setTimeout(() => {
+        proceso.kill()
+        datos.correctitud = '🟥'
+        datos.tiempo = 1000
+        const cadena = JSON.stringify(datos)
+        respuesta.end(cadena)
+    }, limite)
     proceso.stderr.on('data', (salida) => {
         datos.texto += salida
     })
@@ -125,6 +133,8 @@ function ejecutar(solicitud, respuesta, datos) {
         datos.texto += salida
     })
     proceso.on('close', (codigo) => {
+        clearTimeout(temporizador)
+        datos.tiempo = Date.now() - inicio
         if (codigo !== 0) {
             datos.correctitud = '🟥'
             const cadena = JSON.stringify(datos)

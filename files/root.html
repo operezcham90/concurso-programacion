@@ -58,6 +58,7 @@ int main(int argc, char *argv[]) {
         <pre><code>Salida del programa:<span id="salida"></span></code></pre>
         <label>Compilador: </label><span id="compilador">⬛</span>
         <label>Correctitud: </label><span id="correctitud">⬛</span>
+        <label>Velocidad: </label><span id="velocidad">0</span> ms
         <hr>
         <table>
             <thead>
@@ -86,6 +87,7 @@ int main(int argc, char *argv[]) {
         const salida = document.getElementById('salida')
         const entrada = document.getElementById('entrada')
         const tiempo = document.getElementById('tiempo')
+        const velocidad = document.getElementById('velocidad')
         const contenido = document.getElementById('contenido')
         const compilador = document.getElementById('compilador')
         const correctitud = document.getElementById('correctitud')
@@ -126,6 +128,7 @@ int main(int argc, char *argv[]) {
             salida.innerText = '\n' + resultado.texto
             compilador.innerText = resultado.compilacion
             correctitud.innerHTML = resultado.correctitud
+            velocidad.innerText = resultado.tiempo
         }
         const actualizar = () => {
             const fecha = new Date()
