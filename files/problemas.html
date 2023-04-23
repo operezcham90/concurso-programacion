@@ -18,39 +18,54 @@
 
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP)</h1>
-    <table id="problemas">
-        <tr>
-            <th width="80%">Descripción</th>
-            <th>Entrada / salida</th>
-            <th>Menor tiempo</th>
-            <th>Menor tamaño</th>
-            <th>Ganador</th>
-        </tr>
-    </table>
     <script>
         let problemas = {}
         const comenzar = async () => {
             const res = await fetch('/problemas/lista')
             problemas = await res.json()
             problemas.forEach(problema => {
+                const aqui = document.createElement('hr')
+                document.body.append(aqui)
+                const descripcion = document.createElement('span')
+                descripcion.innerText = problema.descripcion
+                document.body.append(descripcion)
+                const casos = document.createElement('table')
+                document.body.append(casos)
+                const encabezados = document.createElement('tr')
+                casos.append(encabezados)
+                [
+                    '🔢 Entrada',
+                    '🔢 Salida',
+                    '⏳ Menor tiempo',
+                    '📐 Menor tamaño',
+                    '🥇 Ganador',
+                    '💻 Probar'
+                ].forEach(encabezado => {
+                    const celda = document.createElement('th')
+                    celda.innerText = encabezado
+                    encabezados.append(celda)
+                })
                 problema.casos.forEach(caso => {
-                    const linea = document.createElement('tr')
-                    const resumen = document.createElement('td')
+                    const informacion = document.createElement('tr')
+                    casos.append(informacion)
                     const entrada = document.createElement('td')
-                    const tiempo = document.createElement('td')
+                    entrada.innerText = caso.entrada
+                    informacion.append(entrada)
+                    const salida = document.createElement('td')
+                    salida.innerText = caso.salida
+                    informacion.append(salida)
+                    const rapidez = document.createElement('td')
+                    rapidez.innerText = caso.rapidez + ' ms'
+                    informacion.append(rapidez)
                     const lineas = document.createElement('td')
-                    const ganador = document.createElement('td')
-                    resumen.innerText = problema.descripcion
-                    entrada.innerText = caso.entrada + ' / ' + caso.salida
-                    tiempo.innerText = caso.rapidez + ' ms'
                     lineas.innerText = caso.lineas + ' líneas'
+                    informacion.append(lineas)
+                    const ganador = document.createElement('td')
                     ganador.innerText = caso.ganador
-                    linea.append(resumen)
-                    linea.append(entrada)
-                    linea.append(tiempo)
-                    linea.append(lineas)
-                    linea.append(ganador)
-                    document.getElementById('problemas').append(linea)
+                    informacion.append(ganador)
+                    const probar = document.createElement('button')
+                    probar.innerText = '📖'
+                    informacion.append(probar)
                 })
             })
         }
