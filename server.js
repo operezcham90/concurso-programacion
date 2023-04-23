@@ -11,9 +11,8 @@ const limite = 1000
 
 const problemas = [
     {
-        resumen: 'Sumar dos números',
         programa: '#include <stdio.h>\n#include <stdlib.h>\nint main(int argc, char *argv[]) {\n    if (argc != 3) {\n        printf("Uso: %s <num1> <num2>\\n", argv[0]);\n        return 1;\n    }\n    int num1 = atoi(argv[1]);\n    int num2 = atoi(argv[2]);\n    int suma = 0;\n    for (int i = 0; i < num1; i++) {\n        suma += 1;\n    }\n    for (int j = 0; j < num2; j++) {\n        suma += 1;\n    }\n    printf("%d\\n", suma);\n    return 0;\n}\n',
-        descripcion: 'Este problema consiste en sumar dos números enteros dados y retornar la suma como resultado. Se proporcionan varios casos de prueba con diferentes pares de números de entrada y sus respectivas salidas esperadas. Tu objetivo es implementar una función que tome dos números como entrada, los sume y retorne el resultado correcto.',
+        descripcion: 'Este problema consiste en sumar dos números enteros dados y retornar la suma como resultado.',
         casos: [
             {
                 entrada: '0 0',
