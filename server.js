@@ -3,13 +3,15 @@
 const cp = require('child_process')
 const http = require('http')
 const fs = require('fs')
+const os = require('os')
 
 const puerto = 81
-const anfitrion = '0.0.0.0'
+const anfitrion = os.hostname()
 const limite = 1000
 
 const servidor = http.createServer(responder)
 servidor.listen(puerto, anfitrion)
+console.log(`http://${afitrion}:${puerto}`)
 
 function responder(solicitud, respuesta) {
     if (solicitud.url === '/water.css' && solicitud.method === 'GET')
@@ -41,43 +43,6 @@ function matar(respuesta) {
     respuesta.end('proceso terminado')
     process.exit(0)
 }
-
-/*function ejecutar(solicitud, respuesta) {
-    let datos = ''
-    respuesta.writeHead(200, { 'Content-Type': 'application/json' })
-    solicitud.on('data', (pedacito) => {
-        datos += pedacito
-    })
-    solicitud.on('end', () => {
-        const programa = JSON.parse(datos)
-        const id = Date.now()
-        const fuente = '/home/serv/dump/' + id + '.c'
-        const ejecutable = '/home/serv/dump/' + id
-        fs.writeFileSync(fuente, programa.codigo)
-        const comando = `gcc ${fuente} -o ${ejecutable} && ${ejecutable} ${programa.argumentos}`
-        cp.exec(comando, (error, exito, fracaso) => {
-            let texto = ''
-            let compilacion = '🟩'
-            let correctitud = '⬛'
-            if (error) {
-                texto = error
-                compilacion = '⬛'
-            }
-            if (fracaso) {
-                texto = fracaso
-                compilacion = '🟥'
-            }
-            if (exito) texto = exito
-            const datos = {
-                texto,
-                compilacion,
-                correctitud
-            }
-            const cadena = JSON.stringify(datos)
-            respuesta.end(cadena)
-        })
-    })
-}*/
 
 function probar(solicitud, respuesta) {
     respuesta.writeHead(200, { 'Content-Type': 'application/json' })
