@@ -11,7 +11,7 @@
     <style>
         td,
         th {
-            font-size: small;
+            font-size: x-small;
         }
     </style>
 </head>
@@ -23,7 +23,7 @@
         const comenzar = async () => {
             const res = await fetch('/problemas/lista')
             problemas = await res.json()
-            problemas.forEach(problema => {
+            problemas.forEach((problema, p) => {
                 const aqui = document.createElement('hr')
                 document.body.append(aqui)
                 const descripcion = document.createElement('span')
@@ -46,7 +46,7 @@
                     celda.innerText = encabezado
                     encabezados.append(celda)
                 })
-                problema.casos.forEach(caso => {
+                problema.casos.forEach((caso, c) => {
                     const informacion = document.createElement('tr')
                     casos.append(informacion)
                     const entrada = document.createElement('td')
@@ -64,8 +64,9 @@
                     const ganador = document.createElement('td')
                     ganador.innerText = caso.ganador
                     informacion.append(ganador)
-                    const probar = document.createElement('button')
-                    probar.innerText = '📖'
+                    const probar = document.createElement('a')
+                    probar.innerText = '📖 Abrir'
+                    probar.href = `/programar?p=${p}&c=${c}`
                     informacion.append(probar)
                 })
             })
