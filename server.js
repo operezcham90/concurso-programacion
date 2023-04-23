@@ -127,6 +127,7 @@ function ejecutar(solicitud, respuesta, datos) {
         proceso.kill()
         datos.correctitud = '🟥'
         datos.tiempo = 1000
+        datos.texto = `Límite de tiempo excedido (${limite} ms)`
         const cadena = JSON.stringify(datos)
         respuesta.end(cadena)
     }, limite)
