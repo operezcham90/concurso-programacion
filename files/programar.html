@@ -39,20 +39,13 @@
     <div id="tiempo">⏳ Cargando...</div>
     <div id="contenido">
         <label>🔢 Entrada:</label>
-        <input type="text" value="0 0" id="entrada">
+        <input type="text" value="." id="entrada">
         <button onclick="probar()">Ejecutar código ▶</button>
         <textarea id="editor" class="ocultar">
 #include <stdio.h>
 #include <stdlib.h>
 int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        printf("Uso: %s <num1> <num2>\n", argv[0]);
-        return 1;
-    }
-    int num1 = atoi(argv[1]);
-    int num2 = atoi(argv[2]);
-    int suma = num1 + num2;
-    printf("La suma de %d y %d es: %d\n", num1, num2, suma);
+    printf("Hola mundo\n");
     return 0;
 }</textarea>
         <pre><code>Salida del programa:<span id="salida"></span></code></pre>
