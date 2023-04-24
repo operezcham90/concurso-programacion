@@ -84,7 +84,10 @@
                     informacion.append(probar)
                 })
             })
-            setTimeout(location.reload, 200)
+            const actualizar = () => {
+                location.reload()
+            }
+            setTimeout(actualizar, 200)
         }
     </script>
 </body>
