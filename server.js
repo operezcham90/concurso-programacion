@@ -179,15 +179,16 @@ function ejecutar(solicitud, respuesta, datos) {
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
         } else {
-            if (datos.texto.trim() === problemas[datos.problema].casos[datos.caso].salida) {
+            const caso = problemas[datos.problema].casos[datos.caso]
+            if (datos.texto.trim() === caso.salida) {
                 datos.correctitud = '🟩'
-                if (0 < datos.tiempo - problemas[datos.problema].casos[datos.caso].rapidez) {
-                    problemas[datos.problema].casos[datos.caso].rapidez = datos.tiempo
-                    problemas[datos.problema].casos[datos.caso].ganador = datos.ip
-                } else if (0 === datos.tiempo - problemas[datos.problema].casos[datos.caso].rapidez) {
-                    if (0 < datos.lineas - problemas[datos.problema].casos[datos.caso].lineas) {
-                        problemas[datos.problema].casos[datos.caso].lineas = datos.lineas
-                        problemas[datos.problema].casos[datos.caso].ganador = datos.ip
+                if (datos.tiempo < caso.rapidez) {
+                    caso.rapidez = datos.tiempo
+                    caso.ganador = datos.ip
+                } else if (datos.tiempo === caso.rapidez) {
+                    if (datos.lineas < caso.lineas) {
+                        caso.lineas = datos.lineas
+                        caso.ganador = datos.ip
                     }
                 }
             }
