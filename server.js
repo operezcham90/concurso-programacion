@@ -88,7 +88,7 @@ function responder(solicitud, respuesta) {
     else if (solicitud.url === '/matar/servidor' && solicitud.method === 'GET')
         matar(respuesta)
     else if (solicitud.url.includes('/programar') && solicitud.method === 'GET')
-        programar(respuesta)
+        programar(solicitud, respuesta)
     else if (solicitud.url === '/problemas/lista' && solicitud.method === 'GET')
         preguntas(respuesta)
     else
@@ -203,9 +203,16 @@ function estilos(respuesta, marca) {
     respuesta.end(texto)
 }
 
-function programar(respuesta) {
+function programar(solicitud, respuesta) {
+    const componentes = solicitud.url.split('/')
+    const problema = +componentes[1]
+    const caso = +componentes[2]
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
     const texto = fs.readFileSync('files/programar.html', 'utf8')
+        .replace('{{caso}}', caso)
+        .replace('{{problema}}', problema)
+        .replace('{{programa}}', problemas[problema].programa)
+        .replace('{{entrada}}', problemas[problema].casos[caso].entrada)
     respuesta.end(texto)
 }
 
