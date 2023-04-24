@@ -87,7 +87,7 @@ function responder(solicitud, respuesta) {
         probar(solicitud, respuesta)
     else if (solicitud.url === '/matar/servidor' && solicitud.method === 'GET')
         matar(respuesta)
-    else if (solicitud.url === '/programar' && solicitud.method === 'GET')
+    else if (solicitud.url.includes('/programar') && solicitud.method === 'GET')
         programar(respuesta)
     else if (solicitud.url === '/problemas/lista' && solicitud.method === 'GET')
         preguntas(respuesta)
