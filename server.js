@@ -50,6 +50,33 @@ const problemas = [
                 ganador: '0.0.0.0'
             }
         ]
+    },
+    {
+        programa: '#include <stdio.h>\n#include <stdlib.h>\nint main(int argc, char *argv[]) {\n    if (argc != 2) {\n        printf("Uso: %s <n>\\n", argv[0]);\n        return 1;\n    }\n    int n = atoi(argv[1]); // Convertimos el argumento de cadena a entero\n    int sum = 0; // Variable para almacenar la suma\n    int i; // Variable de iteración\n    for (i = 1; i < n; i++) {\n        // Verificamos si el número es múltiplo de 3 o 5\n        if (i % 3 == 0 || i % 5 == 0) {\n            sum += i; // Si es múltiplo, lo sumamos a la variable "sum"\n        }\n    }\n    printf("%d\\n", sum);\n    return 0;\n}',
+        descripcion: 'Si enumeramos todos los números naturales menores a 10 que son múltiplos de 3 o 5, obtendremos 3, 5, 6 y 9. La suma de estos múltiplos es 23. Encuentra la suma de todos los múltiplos de 3 o 5 menores a la entrada.',
+        casos: [
+            {
+                entrada: '10',
+                salida: '23',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '1000000',
+                salida: '1404932684',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '1000000000',
+                salida: '631780268',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            }
+        ]
     }
 ]
 
