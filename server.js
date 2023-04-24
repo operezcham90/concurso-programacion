@@ -179,7 +179,7 @@ function ejecutar(solicitud, respuesta, datos) {
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
         } else {
-            if (datos.texto === problemas[datos.problema].casos[datos.caso].salida) {
+            if (datos.texto.trim() === problemas[datos.problema].casos[datos.caso].salida) {
                 datos.correctitud = '🟩'
                 if (datos.tiempo < problemas[datos.problema].casos[datos.caso].rapidez) {
                     problemas[datos.problema].casos[datos.caso].rapidez = datos.tiempo
