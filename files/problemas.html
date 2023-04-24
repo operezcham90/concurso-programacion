@@ -67,7 +67,7 @@
                     entrada.innerText = caso.entrada
                     informacion.append(entrada)
                     const salida = document.createElement('td')
-                    salida.innerText = caso.salida
+                    salida.innerText = '⛔'
                     informacion.append(salida)
                     const ganador = document.createElement('td')
                     ganador.innerText = caso.ganador
@@ -85,6 +85,7 @@
                 })
             })
         }
+        setTimeout(location.reload(), 200)
     </script>
 </body>
 
