@@ -18,12 +18,14 @@
         td,
         input {
             font-size: smaller;
+            white-space: nowrap;
         }
     </style>
 </head>
 
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP)</h1>
+    <h2>Problemas</h2>
     <script>
         let problemas = {}
         const comenzar = async () => {
@@ -45,7 +47,7 @@
                 encabezados.append(fila)
                 const lista = [
                     '🔢',
-                    '🔢',
+                    '✅',
                     '⏳',
                     '📐',
                     '🥇',
