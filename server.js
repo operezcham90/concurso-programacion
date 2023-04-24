@@ -204,6 +204,7 @@ function estilos(respuesta, marca) {
 }
 
 function programar(solicitud, respuesta) {
+    console.log(solicitud.url)
     const componentes = solicitud.url.split('/')
     const problema = +componentes[2]
     const caso = +componentes[3]
