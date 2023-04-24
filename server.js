@@ -205,8 +205,8 @@ function estilos(respuesta, marca) {
 
 function programar(solicitud, respuesta) {
     const componentes = solicitud.url.split('/')
-    const problema = +componentes[1]
-    const caso = +componentes[2]
+    const problema = +componentes[2]
+    const caso = +componentes[3]
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
     const texto = fs.readFileSync('files/programar.html', 'utf8')
         .replace('{{caso}}', caso)
