@@ -49,7 +49,7 @@
                 const lista = [
                     { nombre: '🔢', ancho: '30%' },
                     { nombre: '✅', ancho: '30%' },
-                    { nombre: '🥇', ancho: '30%' },
+                    { nombre: '🥇', ancho: '20%' },
                     { nombre: '⏳', ancho: '10%' },
                     { nombre: '📐', ancho: '10%' },
                     { nombre: '💻', ancho: '10%' }
@@ -80,7 +80,7 @@
                     informacion.append(lineas)
                     const probar = document.createElement('a')
                     probar.innerText = '📖 Abrir'
-                    probar.href = `/programar?p=${p}&c=${c}`
+                    probar.href = `/programar/${p}/${c}`
                     informacion.append(probar)
                 })
             })
