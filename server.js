@@ -129,7 +129,9 @@ function probar(solicitud, respuesta) {
             correctitud: '⬛',
             tiempo: 0,
             lineas: 0,
-            argumentos: programa.argumentos
+            argumentos: programa.argumentos,
+            problema: programa.problema,
+            caso: programa.caso
         }
         const ejecutable = `/home/d/${datos.ip}.${datos.id}`
         const fuente = `${ejecutable}.c`
@@ -177,7 +179,18 @@ function ejecutar(solicitud, respuesta, datos) {
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
         } else {
-            //evaluar(solicitud, respuesta, datos)
+            if (datos.texto === problemas[datos.problema].casos[datos.caso].salida) {
+                datos.correctitud = '🟩'
+                if (datos.tiempo < problemas[datos.problema].casos[datos.caso].rapidez) {
+                    problemas[datos.problema].casos[datos.caso].rapidez = datos.tiempo
+                    problemas[datos.problema].casos[datos.caso].ganador = datos.ip
+                } else if (datos.tiempo === problemas[datos.problema].casos[datos.caso].rapidez) {
+                    if (datos.lineas < problemas[datos.problema].casos[datos.caso].lineas) {
+                        problemas[datos.problema].casos[datos.caso].lineas = datos.lineas
+                        problemas[datos.problema].casos[datos.caso].ganador = datos.ip
+                    }
+                }
+            }
             const cadena = JSON.stringify(datos)
             respuesta.end(cadena)
         }
