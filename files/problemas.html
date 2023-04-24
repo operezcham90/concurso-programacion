@@ -47,11 +47,11 @@
                 const fila = document.createElement('tr')
                 encabezados.append(fila)
                 const lista = [
-                    { nombre: '🔢', ancho: '50%' },
-                    { nombre: '✅', ancho: '50%' },
+                    { nombre: '🔢', ancho: '30%' },
+                    { nombre: '✅', ancho: '30%' },
+                    { nombre: '🥇', ancho: '30%' },
                     { nombre: '⏳', ancho: '10%' },
                     { nombre: '📐', ancho: '10%' },
-                    { nombre: '🥇', ancho: '10%' },
                     { nombre: '💻', ancho: '10%' }
                 ]
                 lista.forEach(encabezado => {
@@ -69,15 +69,15 @@
                     const salida = document.createElement('td')
                     salida.innerText = caso.salida
                     informacion.append(salida)
+                    const ganador = document.createElement('td')
+                    ganador.innerText = caso.ganador
+                    informacion.append(ganador)
                     const rapidez = document.createElement('td')
                     rapidez.innerText = caso.rapidez + ' ms'
                     informacion.append(rapidez)
                     const lineas = document.createElement('td')
                     lineas.innerText = caso.lineas + ' líneas'
                     informacion.append(lineas)
-                    const ganador = document.createElement('td')
-                    ganador.innerText = caso.ganador
-                    informacion.append(ganador)
                     const probar = document.createElement('a')
                     probar.innerText = '📖 Abrir'
                     probar.href = `/programar?p=${p}&c=${c}`
