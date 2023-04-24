@@ -47,16 +47,17 @@
                 const fila = document.createElement('tr')
                 encabezados.append(fila)
                 const lista = [
-                    '🔢',
-                    '✅',
-                    '⏳',
-                    '📐',
-                    '🥇',
-                    '💻'
+                    { nombre: '🔢', ancho: '50%' },
+                    { nombre: '✅', ancho: '50%' },
+                    { nombre: '⏳', ancho: '10%' },
+                    { nombre: '📐', ancho: '10%' },
+                    { nombre: '🥇', ancho: '10%' },
+                    { nombre: '💻', ancho: '10%' }
                 ]
                 lista.forEach(encabezado => {
                     const celda = document.createElement('th')
-                    celda.innerText = encabezado
+                    celda.innerText = encabezado.nombre
+                    celda.width = encabezado.ancho
                     fila.append(celda)
                 })
                 problema.casos.forEach((caso, c) => {
