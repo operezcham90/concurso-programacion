@@ -185,6 +185,9 @@ function ejecutar(solicitud, respuesta, datos) {
                 if (datos.tiempo < caso.rapidez) {
                     caso.rapidez = datos.tiempo
                     caso.ganador = datos.ip
+                    if (datos.lineas < caso.lineas) {
+                        caso.lineas = datos.lineas
+                    }
                 } else if (datos.tiempo === caso.rapidez) {
                     if (datos.lineas < caso.lineas) {
                         caso.lineas = datos.lineas
