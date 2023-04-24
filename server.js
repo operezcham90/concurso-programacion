@@ -181,11 +181,11 @@ function ejecutar(solicitud, respuesta, datos) {
         } else {
             if (datos.texto.trim() === problemas[datos.problema].casos[datos.caso].salida) {
                 datos.correctitud = '🟩'
-                if (datos.tiempo < problemas[datos.problema].casos[datos.caso].rapidez) {
+                if (0 < datos.tiempo - problemas[datos.problema].casos[datos.caso].rapidez) {
                     problemas[datos.problema].casos[datos.caso].rapidez = datos.tiempo
                     problemas[datos.problema].casos[datos.caso].ganador = datos.ip
-                } else if (datos.tiempo === problemas[datos.problema].casos[datos.caso].rapidez) {
-                    if (datos.lineas < problemas[datos.problema].casos[datos.caso].lineas) {
+                } else if (0 === datos.tiempo - problemas[datos.problema].casos[datos.caso].rapidez) {
+                    if (0 < datos.lineas - problemas[datos.problema].casos[datos.caso].lineas) {
                         problemas[datos.problema].casos[datos.caso].lineas = datos.lineas
                         problemas[datos.problema].casos[datos.caso].ganador = datos.ip
                     }
