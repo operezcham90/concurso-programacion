@@ -207,12 +207,14 @@ function programar(solicitud, respuesta) {
     const componentes = solicitud.url.split('/')
     const problema = +componentes[2]
     const caso = +componentes[3]
+    const programa = problemas[problema].programa
+    const entrada = problemas[problema].casos[caso].entrada
     respuesta.writeHead(200, { 'Content-Type': 'text/html' })
     const texto = fs.readFileSync('files/programar.html', 'utf8')
         .replace('{{caso}}', caso)
         .replace('{{problema}}', problema)
-        .replace('{{programa}}', problemas[problema].programa)
-        .replace('{{entrada}}', problemas[problema].casos[caso].entrada)
+        .replace('{{programa}}', programa)
+        .replace('{{entrada}}', entrada)
     respuesta.end(texto)
 }
 
