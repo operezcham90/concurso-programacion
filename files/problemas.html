@@ -34,6 +34,7 @@
         const comenzar = async () => {
             const res = await fetch('/problemas/lista')
             problemas = await res.json()
+            contenido.innerHTML = ''
             problemas.forEach((problema, p) => {
                 const aqui = document.createElement('hr')
                 contenido.append(aqui)
@@ -87,7 +88,6 @@
                 })
             })
             const actualizar = () => {
-                contenido.innerHTML = ''
                 comenzar()
             }
             setTimeout(actualizar, 2000)
