@@ -75,6 +75,13 @@ const problemas = [
                 rapidez: 2000,
                 lineas: 1000,
                 ganador: '0.0.0.0'
+            },
+            {
+                entrada: '1000000000000',
+                salida: '1360072978',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
             }
         ]
     }
@@ -152,7 +159,7 @@ function probar(solicitud, respuesta) {
             id: Date.now(),
             ip: solicitud.connection.remoteAddress,
             texto: '',
-            compilacion: '🟩',
+            compilacion: '✅',
             correctitud: '⬛',
             tiempo: 0,
             lineas: 0,
@@ -208,7 +215,7 @@ function ejecutar(solicitud, respuesta, datos) {
         } else {
             const caso = problemas[datos.problema].casos[datos.caso]
             if (datos.texto.trim() === caso.salida) {
-                datos.correctitud = '🟩'
+                datos.correctitud = '✅'
                 if (datos.tiempo < caso.rapidez) {
                     caso.rapidez = datos.tiempo
                     caso.ganador = datos.ip
