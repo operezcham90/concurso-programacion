@@ -27,19 +27,21 @@
 <body onload="comenzar()">
     <h1>Concurso Umarino de Programación (CUP)</h1>
     <h2>Problemas</h2>
+    <div id="contenido"></div>
     <script>
         let problemas = {}
+        const contenido = document.getElementById('contenido')
         const comenzar = async () => {
             const res = await fetch('/problemas/lista')
             problemas = await res.json()
             problemas.forEach((problema, p) => {
                 const aqui = document.createElement('hr')
-                document.body.append(aqui)
+                contenido.append(aqui)
                 const descripcion = document.createElement('span')
                 descripcion.innerText = problema.descripcion
-                document.body.append(descripcion)
+                contenido.append(descripcion)
                 const casos = document.createElement('table')
-                document.body.append(casos)
+                contenido.append(casos)
                 const encabezados = document.createElement('thead')
                 const cuerpo = document.createElement('tbody')
                 casos.append(encabezados)
@@ -85,7 +87,8 @@
                 })
             })
             const actualizar = () => {
-                location.reload()
+                contenido.innerHTML = ''
+                comenzar()
             }
             setTimeout(actualizar, 2000)
         }
