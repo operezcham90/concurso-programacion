@@ -15,20 +15,6 @@ const problemas = [
         descripcion: 'Este problema consiste en sumar dos números enteros dados y retornar la suma como resultado.',
         casos: [
             {
-                entrada: '0 0',
-                salida: '0',
-                rapidez: 2000,
-                lineas: 1000,
-                ganador: '0.0.0.0'
-            },
-            {
-                entrada: '1 1',
-                salida: '2',
-                rapidez: 2000,
-                lineas: 1000,
-                ganador: '0.0.0.0'
-            },
-            {
                 entrada: '20 15',
                 salida: '35',
                 rapidez: 2000,
@@ -79,6 +65,40 @@ const problemas = [
             {
                 entrada: '1000000000000',
                 salida: '1360072978',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            }
+        ]
+    },
+    {
+        programa: '#include <stdio.h>\n#include <stdlib.h>\n// Función para calcular el factorial de un número entero largo\nlong long int factorial(long long int n) {\n    if (n == 0)\n        return 1;\n    else\n        return n * factorial(n - 1);\n}\n// Función para verificar si un número es divisible entre todos los números enteros desde 1 hasta n\nint esDivisible(long long int num, long long int n) {\n    for (long long int i = 1; i <= n; i++) {\n        if (num % i != 0) {\n            return 0; // Si no es divisible, retorna 0\n        }\n    }\n    return 1; // Si es divisible, retorna 1\n}\nint main(int argc, char *argv[]) {\n    if (argc != 2) {\n        printf("Uso: %s <número>\\n", argv[0]);\n        return 1;\n    }\n    long long int n = atoll(argv[1]); // Obtener el número del argumento\n    if (n <= 0) {\n        printf("Error: El número debe ser un entero positivo\\n");\n        return 1;\n    }\n    long long int limite = factorial(n); // Calcular el factorial del número ingresado\n    long long int prueba = limite - 1;\n    while (prueba > 1) {\n        if (esDivisible(prueba, n)) limite = prueba;\n        prueba--;\n    }\n    printf("%lld\\n", limite);\n    return 0;\n}',
+        descripcion: '2520 es el número más pequeño que puede ser dividido por cada uno de los números del 1 al 10 sin dejar residuo. ¿Cuál es el número positivo más pequeño que es divisible por todos los números del 1 a la entrada?',
+        casos: [
+            {
+                entrada: '10',
+                salida: '2520',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '20',
+                salida: '18044195',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '30',
+                salida: '12361388',
+                rapidez: 2000,
+                lineas: 1000,
+                ganador: '0.0.0.0'
+            },
+            {
+                entrada: '200000',
+                salida: '921721152',
                 rapidez: 2000,
                 lineas: 1000,
                 ganador: '0.0.0.0'
